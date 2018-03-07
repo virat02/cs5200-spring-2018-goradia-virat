@@ -45,6 +45,16 @@ public class Page {
 		this.pageRoles = pageRoles;
 		this.pagePrivileges = pagePrivileges;
 	}
+	
+	public Page(int id, String title, String description, Date created, Date updated, int views) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.description = description;
+		this.created = created;
+		this.updated = updated;
+		this.views = views;
+	}
 
 	private int id;
 	private String title;

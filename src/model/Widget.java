@@ -48,7 +48,7 @@ public class Widget {
 	}
 
 	public Widget(int id, String name, int width, int height, String cssClass, String cssStyle, String text,
-			int widgetOrder, String url, int sharable, int expandable, String src, int size, String html, String type,
+			int widgetOrder, String url, int shareable, int expandable, String src, int size, String html, String type,
 			Page page) {
 		super();
 		this.id = id;
@@ -60,7 +60,7 @@ public class Widget {
 		this.text = text;
 		this.widgetOrder = widgetOrder;
 		this.url = url;
-		this.sharable = sharable;
+		this.shareable = shareable;
 		this.expandable = expandable;
 		this.src = src;
 		this.size = size;
@@ -79,7 +79,7 @@ public class Widget {
 	private String text;
 	private int widgetOrder;
 	private String url;
-	private int sharable;
+	private int shareable;
 	private int expandable;
 	private String src;
 	private int size;
@@ -143,12 +143,12 @@ public class Widget {
 		this.url = url;
 	}
 
-	public int getSharable() {
-		return sharable;
+	public int getShareable() {
+		return shareable;
 	}
 
-	public void setSharable(int sharable) {
-		this.sharable = sharable;
+	public void setShareable(int shareable) {
+		this.shareable = shareable;
 	}
 
 	public int getExpandable() {
@@ -200,7 +200,7 @@ public class Widget {
 	public String toString() {
 		return "Widget [id=" + id + ", name=" + name + ", width=" + width + ", height=" + height + ", cssClass="
 				+ cssClass + ", cssStyle=" + cssStyle + ", text=" + text + ", widgetOrder=" + widgetOrder + ", url="
-				+ url + ", sharable=" + sharable + ", expandable=" + expandable + ", src=" + src + ", size=" + size
+				+ url + ", shareable=" + shareable + ", expandable=" + expandable + ", src=" + src + ", size=" + size
 				+ ", html=" + html + ", type=" + type + "]\n";
 	}
 }

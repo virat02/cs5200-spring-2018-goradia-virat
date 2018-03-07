@@ -6,10 +6,10 @@ public class PageRole {
 		super();
 	}
 	
-	public PageRole(String pageName, String developerUserName, String roleDescription) {
+	public PageRole(String pageName, String developerUsername, String roleDescription) {
 		super();
 		this.pageName = pageName;
-		this.developerUserName = developerUserName;
+		this.developerUsername = developerUsername;
 		this.roleDescription = roleDescription;
 	}
 	
@@ -20,11 +20,11 @@ public class PageRole {
 		this.roleId = roleId;
 	}
 
-	public PageRole(String pageName, String developerUserName, String roleDescription, int pageId, int developerId,
+	public PageRole(String pageName, String developerUsername, String roleDescription, int pageId, int developerId,
 			int roleId) {
 		super();
 		this.pageName = pageName;
-		this.developerUserName = developerUserName;
+		this.developerUsername = developerUsername;
 		this.roleDescription = roleDescription;
 		this.pageId = pageId;
 		this.developerId = developerId;
@@ -32,7 +32,7 @@ public class PageRole {
 	}
 	
 	private String pageName;
-	private String developerUserName;
+	private String developerUsername;
 	private String roleDescription;
 	private int pageId;
 	private int developerId;
@@ -46,12 +46,12 @@ public class PageRole {
 		this.pageName = pageName;
 	}
 
-	public String getDeveloperUserName() {
-		return developerUserName;
+	public String getDeveloperUsername() {
+		return developerUsername;
 	}
 
-	public void setDeveloperUserName(String developerUserName) {
-		this.developerUserName = developerUserName;
+	public void setDeveloperUsername(String developerUsername) {
+		this.developerUsername = developerUsername;
 	}
 
 	public String getRoleDescription() {

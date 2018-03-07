@@ -15,11 +15,11 @@ public class WebsiteRole {
 	private String developerUserName;
 	private String roleDescription;
 	
-	public String getDeveloperUserName() {
+	public String getDeveloperUsername() {
 		return developerUserName;
 	}
 
-	public void setDeveloperUserName(String developerUserName) {
+	public void setDeveloperUsername(String developerUserName) {
 		this.developerUserName = developerUserName;
 	}
 

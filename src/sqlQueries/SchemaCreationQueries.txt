@@ -1,0 +1,208 @@
+CREATE  SCHEMA IF NOT EXISTS hw2_goradia_virat_spring_2018;
+
+CREATE TABLE hw2_goradia_virat_spring_2018.Person (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  firstname varchar(20) NOT NULL,
+  lastname varchar(20) ,
+  username varchar(20) NOT NULL UNIQUE,
+  password varchar(20) NOT NULL,
+  email varchar(20) ,
+  dob Date,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE hw2_goradia_virat_spring_2018.User (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  Person int(11),
+  userAgreement boolean,
+  userKey varchar(11) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT User_Person_Generaliztion FOREIGN KEY 
+(Person) REFERENCES Person (id)  ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE hw2_goradia_virat_spring_2018.Developer (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  Person int(11),
+  developerKey varchar(20) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT Developer_Person_Generaliztion FOREIGN KEY 
+(Person) REFERENCES Person (id)  ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE hw2_goradia_virat_spring_2018.Address (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  street1 varchar(20) NOT NULL,
+  street2 varchar(20) ,
+  city varchar(20) NOT NULL,
+  state varchar(20) ,
+  pincode int(10) NOT NULL,
+  isPrimary boolean NOT NULL, 
+  Person int(11),
+  PRIMARY KEY (id),
+  CONSTRAINT Address_Person FOREIGN KEY (Person) REFERENCES Person (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE hw2_goradia_virat_spring_2018.Phone (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  phone varchar(20) NOT NULL,
+  isPrimary boolean NOT NULL,
+  Person int(11),
+  PRIMARY KEY (id),
+  CONSTRAINT Phone_Person FOREIGN KEY (Person) REFERENCES Person (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE hw2_goradia_virat_spring_2018.Website (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(20) NOT NULL,
+  description varchar(200) ,
+  created Date NOT NULL,
+  updated Date NOT NULL,
+  visits int(11),
+  Developer int(11),
+  PRIMARY KEY (id),
+  CONSTRAINT Website_Developer FOREIGN KEY (developer) REFERENCES Developer (id) 
+);
+
+CREATE TABLE hw2_goradia_virat_spring_2018.Page (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  title varchar(20) NOT NULL,
+  description varchar(200) ,
+  created Date NOT NULL,
+  updated Date NOT NULL,
+  views int(11),
+  Website int(11),
+  PRIMARY KEY (id),
+  CONSTRAINT Page_Website FOREIGN KEY (Website) REFERENCES Website (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+CREATE TABLE hw2_goradia_virat_spring_2018.Widget (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  name varchar(20) NOT NULL,
+  width int(11) ,
+  height int(11) ,
+  cssClass varchar(20) ,
+  cssStyle varchar(20) ,
+  text varchar(200),
+  widgetOrder int(11) NOT NULL,
+  url varchar(50),
+  sharable Boolean,
+  expandable Boolean,
+  src varchar(50),
+  size int(11) DEFAULT 2,
+  html varchar(200),
+  type varchar(100) NOT NULL,
+  Page int(11),
+  PRIMARY KEY (id),
+  CONSTRAINT Widget_Page FOREIGN KEY (Page) REFERENCES Page (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE hw2_goradia_virat_spring_2018.Role (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  roleDescription varchar(20) NOT NULL UNIQUE,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE hw2_goradia_virat_spring_2018.Privilege (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  privilegeDescription varchar(20) NOT NULL UNIQUE,
+  PRIMARY KEY (id)
+);
+
+
+CREATE TABLE hw2_goradia_virat_spring_2018.PageRole (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  Role int(11) ,
+  Page int(11) ,
+  Developer int(11),
+  PRIMARY KEY (id),
+  CONSTRAINT PageRole_Role FOREIGN KEY (role) REFERENCES Role (id) ON DELETE CASCADE ON UPDATE CASCADE, 
+  CONSTRAINT PageRole_Page FOREIGN KEY (page) REFERENCES Page (id) ON DELETE CASCADE ON UPDATE CASCADE,
+   CONSTRAINT PageRole_Developer FOREIGN KEY (developer) REFERENCES Developer (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE hw2_goradia_virat_spring_2018.WebsiteRole (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  Role int(11) ,
+  Website int(11) ,
+  Developer int(11),
+  PRIMARY KEY (id),
+  CONSTRAINT WebsiteRole_Role FOREIGN KEY (role) REFERENCES Role (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT WebsiteRole_Website FOREIGN KEY (website) REFERENCES Website (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT WebsiteRole_Developer FOREIGN KEY (developer) REFERENCES Developer (id) ON DELETE CASCADE ON UPDATE CASCADE
+
+);
+
+
+CREATE TABLE hw2_goradia_virat_spring_2018.PagePrivilege (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  Privilege int(11) ,
+  Page int(11) ,
+  Developer int(11),
+  PRIMARY KEY (id),
+  CONSTRAINT PagePrivilege_Privilege FOREIGN KEY (Privilege) REFERENCES Privilege (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT PagePrivilege_Page FOREIGN KEY (Page) REFERENCES Page (id) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT PagePrivilege_Developer FOREIGN KEY (developer) REFERENCES Developer (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE hw2_goradia_virat_spring_2018.WebsitePrivilege (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  Privilege int(11) ,
+  Website int(11) ,
+  Developer int(11),
+  PRIMARY KEY (id),
+  CONSTRAINT WebsitePrivilege_Privilege FOREIGN KEY (Privilege) REFERENCES Privilege (id) ON DELETE CASCADE ON UPDATE CASCADE,
+   CONSTRAINT WebsitePrivilege_Website FOREIGN KEY (Website) REFERENCES Website (id) ON DELETE CASCADE ON UPDATE CASCADE,
+   CONSTRAINT WebsitePrivilege_Developer FOREIGN KEY (developer) REFERENCES Developer (id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+CREATE TABLE hw2_goradia_virat_spring_2018.RolePrivilege (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  Role int(11) NOT NULL,
+  Privilege int(11) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT RolePrivilege_Role FOREIGN KEY (Role) REFERENCES Role (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT RolePrivilege_Privilege FOREIGN KEY (Privilege) REFERENCES Privilege (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
+
+
+
+INSERT INTO hw2_goradia_virat_spring_2018.Role(roleDescription) VALUES ("owner");
+ 
+INSERT INTO hw2_goradia_virat_spring_2018.Role(roleDescription) VALUES ("admin");
+
+INSERT INTO hw2_goradia_virat_spring_2018.Role(roleDescription) VALUES ("writer");
+
+INSERT INTO hw2_goradia_virat_spring_2018.Role(roleDescription) VALUES ("editor");
+
+INSERT INTO hw2_goradia_virat_spring_2018.Role(roleDescription) VALUES ("reviewer");
+
+INSERT INTO hw2_goradia_virat_spring_2018.Privilege(privilegeDescription) VALUES ("create");
+
+INSERT INTO hw2_goradia_virat_spring_2018.Privilege(privilegeDescription) VALUES ("read");
+
+INSERT INTO hw2_goradia_virat_spring_2018.Privilege(privilegeDescription) VALUES ("update");
+
+INSERT INTO hw2_goradia_virat_spring_2018.Privilege(privilegeDescription) VALUES ("delete");
+
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '1', '1');
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '1', '2');
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '1', '3');
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '1', '4');
+
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '2', '1');
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '2', '2');
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '2', '3');
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '2', '4');
+
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '3', '2');
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '3', '3');
+
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '4', '2');
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '4', '3');
+
+INSERT INTO `hw2_goradia_virat_spring_2018`.`RolePrivilege` (`Role`, `Privilege`) VALUES ( '5', '2');
+
